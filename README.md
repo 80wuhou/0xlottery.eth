@@ -1,24 +1,78 @@
-Thanks to the free original generation from the DeepSeek official website. The DeLotGame contract is a smart contract based on the Ethereum blockchain platform. It operates entirely within the contract, can be fully operated within the wallet, is completely decentralized, and does not require any wallet authorization. In actual tests, the gas cost for running on the Base chain is less than 0.1 yuan. You are welcome to test it at the Base Sepolia address (0xD056c1EE47A65C1f0A43Cbd89DE882AF5075DD1D) and the Eth Sepolia address (0x0228c4fAc26F86A7Beff238bAFeE066457D6B296). It inherits from the ERC20 contract standard of OpenZeppelin and issues a token named DeLot (abbreviated as DLT). This contract offers three core functions: token minting, gameplay, and token redemption. The following describes how to use the MetaMask browser extension wallet (currently, the mobile version does not support adding a DEMO note to the transfer) to participate in operations related to the DeLotGame contract:
-Participating in the Game
-First, open the MetaMask extension and ensure that it is connected to a network that supports this contract and that there is sufficient ETH in your wallet. Click "Send", enter the DeLotGame contract address in the "Recipient" field, set the amount of ETH to transfer, then click "Advanced options" and enter the required HEX - formatted data in the "Data" field (the length after processing should not exceed 16 bytes). After confirming that the information is correct, click "Confirm" to complete the transfer. The contract will process the data, check and distribute any previously unclaimed rewards, and record the information of this transfer.
-Winning Conditions
-After each transfer with valid HEX data, the contract will calculate the target block number (the nearest block number divisible by 10 after the block number of the transfer). When the current block number exceeds the target block number and the difference between them is within 256 blocks, if the hash value of the target block is valid and the data of the previous transfer contains the last character of this hash value, you will win a prize. The reward amount is calculated as (amount of ETH in the previous transfer * 16) / length of the previous transfer data. If the contract's ETH balance is insufficient, the entire balance will be distributed as a reward.
-Staking (Minting)
-In MetaMask, click "Send", enter the contract address and the amount of ETH to transfer, and leave the "Data" field blank. After confirming the transfer information, click "Confirm". The contract will mint tokens according to the following rules: if the total token supply is 0 or the contract's ETH balance is less than or equal to the total token supply, the number of minted tokens is equal to the amount of transferred ETH; otherwise, the number of minted tokens is calculated as (amount of transferred ETH * total token supply) / contract's ETH balance.
-Redemption
+Detailed Introduction to DeLotGame Contract (Thanks to the original free generation on the deepseek official website)
+I. Contract Overview
+The DeLotGame contract is a smart contract deployed on the Ethereum blockchain, featuring the following characteristics:
+Fully operating within the contract: All logic is executed inside the contract.
+Fully operable within the wallet: Users can interact with the contract through their wallets.
+Fully decentralized: It doesn't rely on centralized institutions or servers.
+No wallet authorization required: Users can use the contract without additional wallet authorization.
+In addition, when this contract runs on the Base chain, the measured gas fee is less than 0.1 yuan. The test addresses are as follows:
+BaseSepolia address: 0xD056c1EE47A65C1f0A43Cbd89DE882AF5075DD1D
+EthSepolia address: 0x0228c4fAc26F86A7Beff238bAFeE066457D6B296
+This contract provides three core functions: minting, gameplay, and coin redemption.
+II. Participating in the DeLotGame Contract Using the MetaMask Browser Plug - in Wallet (Currently, the mobile MetaMask wallet does not support transfer remarks for the DEMO)
+(I) Participating in the Game
+Preparation: Open the MetaMask plugin, connect to a network that supports the DeLotGame contract, and confirm that there is sufficient ETH in the wallet.
+Transfer: Click the "Send" button, enter the DeLotGame contract address in the "Recipient" field, and set the amount of ETH to transfer.
+Input data: Click "Advanced Options", and in the "Data" field, enter the guessed data in HEX format (composed of valid characters 0 - 9, a - f, with a length not exceeding 16 bytes) as the guessing characters.
+Confirm the transaction: After checking that the transfer information is correct, click "Confirm" to complete the transfer. The contract will record and process the relevant data.
+(II) Winning Mechanism
+Target block number: After each transfer with valid HEX data, the contract will calculate a target block number (i.e., the first block number ending with zero after the block number where the transfer occurs).
+Hash value judgment: When the current block number exceeds the target block number and the difference between the two is within 256 blocks, the contract will obtain the hash value of the target block.
+Winning condition: If the hash value is valid and the last character of the hash value is included in the data of the previous transfer, it is considered a win.
+Reward calculation: The reward amount is calculated according to the formula (the amount of ETH transferred last time * 16) / the length of the data transferred last time. If the ETH balance of the contract is insufficient, the entire balance will be issued as a reward.
+(III) Pledge (Minting)
+Transfer operation: In MetaMask, click the "Send" button, enter the DeLotGame contract address and the amount of ETH to transfer.
+Leave the data field blank: Ensure that the "Data" field is blank.
+Confirm the transaction: After checking that the transfer information is correct, click "Confirm".
+Minting rules:
+If the total token supply is 0, or the ETH balance of the contract is less than or equal to the total token supply, the number of minted tokens is equal to the amount of transferred ETH.
+Otherwise, the number of minted tokens is (the amount of transferred ETH * the total token supply) / the ETH balance of the contract.
+(IV) Redemption
 Manual Redemption
-If you want to redeem tokens manually, visit a website that supports contract interaction, find the redeem function of the DeLotGame contract, enter the number of DLT tokens to redeem (it must be greater than 0), ensure that the total token supply is greater than 0 and that the contract has sufficient ETH balance. Click "Write", confirm the transaction information in MetaMask to complete the redemption. The corresponding DLT tokens will be burned, and you will receive ETH according to the formula (number of DLT tokens to redeem * contract's ETH balance) / total token supply.
-Automatic Redemption
-You can also perform automatic redemption directly through MetaMask. When clicking "Send", enter the contract address in the "Recipient" field and the number of DLT tokens to redeem in the "Amount" field, then confirm the transaction. Alternatively, if you use the method of authorizing others to transfer on your behalf, call the transferFrom function and set the recipient address to the contract address. This will also trigger the automatic redemption logic. The process is similar to manual redemption, where tokens will be burned according to the rules and you will receive the corresponding amount of ETH.
-感谢deepseek官网原版免费生成，DeLotGame 合约是一个基于以太坊区块链平台的智能合约，完全合约内运行、完全钱包内操作、完全去中心化、完全不需要钱包授权，实测在base链上运行gas低于0.1元，欢迎在basesepolia地址测试（0xD056c1EE47A65C1f0A43Cbd89DE882AF5075DD1D）、在ethsepolia地址测试（0x0228c4fAc26F86A7Beff238bAFeE066457D6B296），它继承自 OpenZeppelin 的 ERC20 合约标准，发行名为 DeLot（简称 DLT）的代币。该合约提供了铸币、游戏玩法以及兑币三大核心功能。下面介绍如何使用 MetaMask 浏览器插件版钱包（目前手机版不支持转账备注DEMO）参与 DeLotGame 合约相关操作的方法如下：
- 参与游戏
-先打开 MetaMask 插件，确保已连接到支持该合约的网络且钱包内有足够 ETH。点击“发送”，在“收件人”处填入 DeLotGame 合约地址，设定要转的 ETH 数量，再点击“高级选项”，在“数据”栏输入符合要求的 HEX 格式数据（经处理后长度不超 16 字节），确认信息无误后点击“确认”完成转账。合约会处理数据、检查并发放之前未领取的奖励，同时记录本次转账信息。
-中奖方式
-每次附带有效 HEX 数据转账后，合约会算出目标区块号（转账所在区块号后最近能被 10 整除的区块号）。当当前区块号超过目标区块号且两者差值在 256 个区块内，若目标区块哈希值有效，且上次转账数据包含该哈希值最后一个字符，就能中奖。奖励金额按 `(上次转账 ETH 数量 * 16) / 上次转账数据长度` 计算，若合约 ETH 余额不足则发放全部余额。
-质押（铸币）
-在 MetaMask 点击“发送”，填入合约地址和要转的 ETH 数量，“数据”栏留空，确认转账信息后点击“确认”。合约依据规则铸币：若代币总供应量为 0 或合约 ETH 余额小于等于代币总供应量，铸币数量等于转账 ETH 数量；否则，铸币数量为 `(转账 ETH 数量 * 代币总供应量) / 合约 ETH 余额`。
-兑换
+Visit the website: Visit a website that supports contract interaction and find the redeem function of the DeLotGame contract.
+Input quantity: Enter the quantity of DLT tokens to be redeemed (greater than 0) in the function input box.
+Check conditions: Ensure that the total token supply is greater than 0 and the contract has sufficient ETH balance for redemption.
+Confirm the transaction: Click the "Write" button, and confirm the transaction information in the confirmation window popped up by MetaMask to complete the redemption. The corresponding quantity of DLT tokens will be burned, and the user will receive the corresponding amount of ETH.
+Direct Redemption
+Transfer operation: In MetaMask, click the "Send" button and fill in the contract address as the "Recipient".
+Input quantity: Fill in the quantity of DLT tokens to be redeemed in the "Amount" field.
+Confirm the transaction: After checking that it is correct, confirm the transaction to complete the direct redemption. Users can also authorize others to transfer on their behalf, call the transferFrom function, and set the receiving address as the contract address to trigger the automatic redemption logic.
+DeLotGame 合约详细介绍（感谢 deepseek 官网原版免费生成）
+一、合约概述
+DeLotGame 合约是部署在以太坊区块链上的智能合约，具备以下特性：
+完全合约内运行：所有逻辑均在合约内部执行。
+完全钱包内操作：用户通过钱包即可与合约进行交互。
+完全去中心化：无需依赖中心化机构或服务器。
+无需钱包授权：用户无需对钱包进行额外授权即可使用合约。
+此外，该合约在 Base 链上运行时，实测 gas 费用低于 0.1 元。测试地址如下：
+BaseSepolia 地址：0xD056c1EE47A65C1f0A43Cbd89DE882AF5075DD1D
+EthSepolia 地址：0x0228c4fAc26F86A7Beff238bAFeE066457D6B296
+该合约提供三大核心功能：铸币、游戏玩法及兑币。
+二、使用 MetaMask 浏览器插件版钱包（目前手机 MetaMask 钱包不支持转账备注 DEMO）参与 DeLotGame 合约
+（一）参与游戏
+准备：打开 MetaMask 插件，连接至支持 DeLotGame 合约的网络，并确认钱包中有足够的 ETH。
+转账：点击 “发送” 按钮，在 “收件人” 栏输入 DeLotGame 合约地址，并设定转账的 ETH 数量。
+输入数据：点击 “高级选项”，在 “数据” 栏输入竞猜的 HEX 格式的数据（由有效字符 0 - 9、a - f 组成，长度不超过 16 字节），作为竞猜字符。
+确认交易：检查转账信息无误后，点击 “确认” 完成转账。合约将记录并处理相关数据。
+（二）中奖机制
+目标区块号：每次附带有效 HEX 数据转账后，合约会计算出一个目标区块号（即转账所在区块号后的第一个整十区块号）。
+哈希值判断：当当前区块号超过目标区块号，且两者差值在 256 个区块以内时，合约会获取目标区块的哈希值。
+中奖条件：若哈希值有效，且上次转账数据中包含该哈希值的最后一个字符，则视为中奖。
+奖励计算：奖励金额按公式 (上次转账 ETH 数量 * 16) / 上次转账数据长度计算。若合约 ETH 余额不足，则发放全部余额作为奖励。
+（三）质押（铸币）
+转账操作：在 MetaMask 中点击 “发送” 按钮，输入 DeLotGame 合约地址和要转账的 ETH 数量。
+数据栏留空：确保 “数据” 栏为空。
+确认交易：检查转账信息无误后，点击 “确认”。
+铸币规则：
+若代币总供应量为 0，或合约 ETH 余额小于等于代币总供应量，铸币数量等于转账的 ETH 数量。
+否则，铸币数量为 (转账 ETH 数量 * 代币总供应量) / 合约 ETH 余额。
+（四）兑换
 手动兑换
-若要手动兑换，访问支持合约交互的网页，找到 DeLotGame 合约的 `redeem` 函数，输入要兑换的 DLT 代币数量（需大于 0），确保代币总供应量大于 0 且合约有足够 ETH 余额，点击“写入”，在 MetaMask 确认交易信息后完成兑换，相应 DLT 代币会被销毁，同时按 `(要兑换 DLT 数量 * 合约 ETH 余额) / 代币总供应量` 获得 ETH。
-自动兑换
-也可通过 MetaMask 直接进行自动兑换。在“发送”时，“收件人”填合约地址，“金额”填要兑换的 DLT 数量，确认交易即可。或者若使用授权他人代转的方式，调用 `transferFrom` 函数，将接收地址设为合约地址，同样能触发自动兑换逻辑，流程与手动兑换类似，按规则销毁代币并获得对应 ETH。
+访问网页：访问支持合约交互的网页，找到 DeLotGame 合约的 redeem 函数。
+输入数量：在函数输入框中输入要兑换的 DLT 代币数量（大于 0）。
+检查条件：确保代币总供应量大于 0，且合约有足够的 ETH 余额用于兑换。
+确认交易：点击 “写入” 按钮，在 MetaMask 弹出的确认窗口中确认交易信息，完成兑换。相应数量的 DLT 代币将被销毁，用户将获得对应数量的 ETH。
+直接兑换
+转账操作：在 MetaMask 中点击 “发送” 按钮，将 “收件人” 填写为合约地址。
+输入数量：“金额” 栏填写为要兑换的 DLT 代币数量。
+确认交易：检查无误后确认交易，即可完成直接兑换。用户也可以使用授权他人代转的方式，调用 transferFrom 函数，并将接收地址设为合约地址，触发自动兑换逻辑。
